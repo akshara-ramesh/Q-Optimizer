@@ -7,10 +7,10 @@ import {
   onSnapshot,
   deleteDoc,
   doc,
-  getDoc,
   getDocs,
   limit,
-  updateDoc
+  updateDoc,
+  where
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 // Get queue from login
@@ -30,48 +30,72 @@ function loadTokens() {
     list.innerHTML = "";
 
     snapshot.forEach((docItem) => {
-      const data = docItem.data();
-      const li = document.createElement("li");
+  const data = docItem.data();
+  const li = document.createElement("li");
 
-      let text = "Token " + data.tokenNumber;
+  let html = "<div class='token-card'>";
 
-      if (data.urgentRequested) {
-        text += "<br>Request: " + data.urgentComment +
-          " <button onclick='approveUrgent(\"" + docItem.id + "\")'>Approve</button>" +
-          " <button onclick='rejectUrgent(\"" + docItem.id + "\")'>Reject</button>";
-      }
+  html += "<div class='token-title'>Token " + data.tokenNumber + "</div>";
 
-      li.innerHTML = text;
-      list.appendChild(li);
-    });
+  if (data.queueType === "grace") {
+    html += "<div class='grace'>Grace Queue</div>";
+  }
+
+  if (data.urgentRequested) {
+    html += "<div class='urgent'>Urgent: " + data.urgentComment + "</div>";
+
+    html +=
+      "<button class='action-btn' onclick='approveUrgent(\"" + docItem.id + "\")'>Approve</button>" +
+      "<button class='action-btn' onclick='rejectUrgent(\"" + docItem.id + "\")'>Reject</button>";
+  }
+
+  html +=
+    "<br>" +
+    "<button class='action-btn' onclick='serveThis(\"" + docItem.id + "\")'>Served</button>" +
+    "<button class='action-btn' onclick='markMissed(\"" + docItem.id + "\")'>Missed</button>";
+
+  html += "</div>";
+
+  li.innerHTML = html;
+  list.appendChild(li);
+});
+
   });
 }
 
+
 window.serveNext = async function () {
+
   const tokensRef = collection(db, "queues", queueId, "tokens");
-  const q = query(tokensRef, orderBy("isUrgent", "desc"), orderBy("tokenNumber"), limit(1));
-  const snapshot = await getDocs(q);
 
-  snapshot.forEach(async (docItem) => {
-    const tokenData = docItem.data();
+  // 1️⃣ Serve GRACE queue first
+  const graceQuery = query(tokensRef, where("queueType", "==", "grace"), limit(1));
+  const graceSnap = await getDocs(graceQuery);
 
-    const createdTime = tokenData.createdAt.toDate();
-    const now = new Date();
-    const serviceTime = Math.floor((now - createdTime) / 1000);
-
-    const queueRef = doc(db, "queues", queueId);
-    const queueSnap = await getDoc(queueRef);
-    const queueData = queueSnap.data();
-
-    const oldAvg = queueData.avgServiceTime || 30;
-    const newAvg = Math.floor((oldAvg + serviceTime) / 2);
-
-    await updateDoc(queueRef, {
-      avgServiceTime: newAvg
+  if (!graceSnap.empty) {
+    graceSnap.forEach(async (docItem) => {
+      await deleteDoc(docItem.ref);
     });
+    return;
+  }
 
+  // 2️⃣ Then serve MAIN queue
+  const mainQuery = query(tokensRef, orderBy("isUrgent", "desc"), orderBy("tokenNumber"), limit(1));
+  const mainSnap = await getDocs(mainQuery);
+
+  mainSnap.forEach(async (docItem) => {
     await deleteDoc(docItem.ref);
   });
+};
+
+window.markMissed = async function(tokenId) {
+  await updateDoc(doc(db, "queues", queueId, "tokens", tokenId), {
+    queueType: "grace"
+  });
+};
+
+window.serveThis = async function(tokenId) {
+  await deleteDoc(doc(db, "queues", queueId, "tokens", tokenId));
 };
 
 window.approveUrgent = async function(tokenId) {
@@ -87,5 +111,6 @@ window.rejectUrgent = async function(tokenId) {
     urgentComment: ""
   });
 };
+
 
 loadTokens();

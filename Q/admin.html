@@ -78,6 +78,85 @@ window.onload = function() {
       border-radius: 10px;
       box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     }
+
+    .action-btn {
+  background: white;
+  color: #ff6a00;
+  border: 2px solid #ff6a00;
+  padding: 6px 12px;
+  margin: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.action-btn:hover {
+  background: #ff6a00;
+  color: white;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f6fa;
+  padding: 30px;
+}
+
+#adminTitle {
+  text-align: center;
+  color: #ff6a00;
+  margin-bottom: 20px;
+}
+
+#tokenList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+}
+
+.token-card {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.token-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.grace {
+  color: purple;
+  font-size: 13px;
+}
+
+.urgent {
+  color: red;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.action-btn {
+  background: white;
+  color: #ff6a00;
+  border: 2px solid #ff6a00;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.action-btn:hover {
+  background: #ff6a00;
+  color: white;
+}
+
   </style>
 </head>
 

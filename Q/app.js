@@ -39,6 +39,7 @@ window.join = async function(queueId) {
       isUrgent: false,
       urgentRequested: false,
       urgentComment: "",
+      queueType: "main",
       createdAt: serverTimestamp()
     });
 
