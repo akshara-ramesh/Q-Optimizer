@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI';
+      background: #f7f7f7;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #ff6a00;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .stats {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 15px auto;
+      width: 300px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+      padding: 12px 25px;
+      background: linear-gradient(45deg, #ff6a00, #ffb347);
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 400px;
+      margin: auto;
+      text-align: left;
+    }
+
+    li {
+      background: white;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<select id="queueSelect" onchange="changeQueue()">
+  <option value="canteen">Canteen</option>
+  <option value="office">Office</option>
+  <option value="library">Library</option>
+</select>
+
+<div class="stats">
+  <p>Total in Queue: <b id="total">0</b></p>
+</div>
+
+<button onclick="serveNext()">Serve Next</button>
+
+<h3>Token List</h3>
+<ul id="tokenList"></ul>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const queueSelect = document.getElementById("queueSelect");
+
+function trackStats(queue) {
+  const tokensRef = collection(db, "queues", queue, "tokens");
+
+  onSnapshot(tokensRef, (snap) => {
+    document.getElementById("total").innerText = snap.size;
+  });
+}
+
+trackStats("canteen");
+
+queueSelect.addEventListener("change", () => {
+  trackStats(queueSelect.value);
+});
+</script>
+
+<script type="module" src="admin.js"></script>
+
+</body>
+</html>
