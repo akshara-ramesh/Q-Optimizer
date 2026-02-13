@@ -7,12 +7,15 @@ import {
   onSnapshot,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   limit,
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-let queueId = "canteen";
+// Get queue from login
+let queueId = localStorage.getItem("adminQueue");
+
 let unsubscribe = null;
 
 function loadTokens() {
@@ -44,17 +47,29 @@ function loadTokens() {
   });
 }
 
-window.changeQueue = function() {
-  queueId = document.getElementById("queueSelect").value;
-  loadTokens();
-};
-
 window.serveNext = async function () {
   const tokensRef = collection(db, "queues", queueId, "tokens");
   const q = query(tokensRef, orderBy("isUrgent", "desc"), orderBy("tokenNumber"), limit(1));
   const snapshot = await getDocs(q);
 
   snapshot.forEach(async (docItem) => {
+    const tokenData = docItem.data();
+
+    const createdTime = tokenData.createdAt.toDate();
+    const now = new Date();
+    const serviceTime = Math.floor((now - createdTime) / 1000);
+
+    const queueRef = doc(db, "queues", queueId);
+    const queueSnap = await getDoc(queueRef);
+    const queueData = queueSnap.data();
+
+    const oldAvg = queueData.avgServiceTime || 30;
+    const newAvg = Math.floor((oldAvg + serviceTime) / 2);
+
+    await updateDoc(queueRef, {
+      avgServiceTime: newAvg
+    });
+
     await deleteDoc(docItem.ref);
   });
 };

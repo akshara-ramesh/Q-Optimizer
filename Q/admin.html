@@ -3,6 +3,26 @@
 <head>
   <title>Admin Dashboard</title>
 
+  <h3 id="queueName"></h3>
+
+<script>
+window.onload = function() {
+  const q = localStorage.getItem("adminQueue");
+
+  if (!q) {
+    window.location.href = "admin-login.html";
+    return;
+  }
+
+  document.getElementById("adminTitle").innerText =
+    q.toUpperCase() + " Admin Dashboard";
+
+  document.getElementById("queueName").innerText =
+    "Managing: " + q.toUpperCase() + " Queue";
+};
+</script>
+
+
   <style>
     body {
       font-family: 'Segoe UI';
@@ -63,13 +83,8 @@
 
 <body>
 
-<h1>Admin Dashboard</h1>
+<h1 id="adminTitle">Admin Dashboard</h1>
 
-<select id="queueSelect" onchange="changeQueue()">
-  <option value="canteen">Canteen</option>
-  <option value="office">Office</option>
-  <option value="library">Library</option>
-</select>
 
 <div class="stats">
   <p>Total in Queue: <b id="total">0</b></p>
@@ -100,6 +115,21 @@ queueSelect.addEventListener("change", () => {
   trackStats(queueSelect.value);
 });
 </script>
+
+<script>
+window.onload = function() {
+  const q = localStorage.getItem("adminQueue");
+
+  if (!q) {
+    window.location.href = "admin-login.html";
+    return;
+  }
+
+  document.getElementById("adminTitle").innerText =
+    q.toUpperCase() + " Admin Dashboard";
+};
+</script>
+
 
 <script type="module" src="admin.js"></script>
 
