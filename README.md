@@ -2,27 +2,27 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Project Name] 🎯
+# [Q-Optimizer] 🎯
 
 ## Basic Details
 
-### Team Name: [Name]
+### Team Name: [Codenauts]
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
+- Member 1: [Akshara R] - [NSS College Of Engineering, Palakkad]
+- Member 2: [Uthara Menon] - [NSS College Of Engineering, Palakkade]
 
 ### Hosted Project Link
-[mention your project hosted link here]
+[https://heroic-chimera-745ca4.netlify.app/]
 
 ### Project Description
-[2-3 lines about what your project does]
+[AI-assisted smart queue management system that replaces physical lines in college canteens, offices, and libraries with a digital token system. It provides real-time queue position, wait time estimation, urgent priority handling, and dynamic queue control.]
 
 ### The Problem statement
-[What problem are you solving?]
+[In institutions such as colleges, long and unorganized queues are common in places like canteens, libraries, labs, and administrative offices. People are required to stand in line without knowing their actual waiting time. This leads to wasted time, overcrowding during peak hours, and inefficient service management. Additionally, staff members lack real-time visibility into queue load and peak periods, making crowd control difficult.]
 
 ### The Solution
-[How are you solving it?]
+[We built a real-time digital token system that converts physical queues into virtual queues. Students can join remotely and track their position and estimated wait time, while admins can manage tokens, approve urgent requests, mark missed turns, and temporarily close queues. The system also learns average service time dynamically to improve ETA accuracy.]
 
 ---
 
@@ -31,26 +31,21 @@
 ### Technologies/Components Used
 
 **For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
+- Languages used: [JavaScript, HTML, CSS]
+- Frameworks used: [Firebase (Backend)]
+- Libraries used: [Firebase Firestore SDK]
+- Tools used: [VS Code, Git, Firebase Console, Chrome DevTools]
 
 **For Hardware:**
-- Main components: [List main components]
-- Specifications: [Technical specifications]
-- Tools required: [List tools needed]
-
----
+[None]
 
 ## Features
-
-List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-- Feature 4: [Description]
-
+- Feature 1: [Live digital token system. Students join queue and get instant token number and position.]
+- Feature 2: [Real-time ETA prediction. Wait time calculated based on current queue and average service time.]
+- Feature 3: [Urgent priority system. Students can request priority and admins can approve/reject.]
+- Feature 4: [Grace queue for missed turns. Users who miss their slot get a second chance queue.]
+- Feature 5: [Queue open/close control. Admin can close service during lunch/break time.]
+- Feature 6: [Live service completion detection. Student screen updates automatically when served.]
 ---
 
 ## Implementation
@@ -58,22 +53,22 @@ List the key features of your project:
 ### For Software:
 
 #### Installation
-```bash
-[Installation commands - e.g., npm install, pip install -r requirements.txt]
-```
+ No installation needed
+ Just open project folder
+
 
 #### Run
-```bash
-[Run commands - e.g., npm start, python app.py]
-```
+ Open index.html using Live Server
+ OR deploy on Firebase Hosting
+
 
 ### For Hardware:
 
 #### Components Required
-[List all components needed with specifications]
+[None]
 
 #### Circuit Setup
-[Explain how to set up the circuit]
+[None]
 
 ---
 
@@ -97,6 +92,7 @@ List the key features of your project:
 **System Architecture:**
 
 ![Architecture Diagram](docs/architecture.png)
+
 *Explain your system architecture - components, data flow, tech stack interaction*
 
 **Application Workflow:**
@@ -374,25 +370,27 @@ python script.py -v --format json data.json
 
 If you used AI tools during development, document them here for transparency:
 
-**Tool Used:** [e.g., GitHub Copilot, v0.dev, Cursor, ChatGPT, Claude]
+**Tool Used:** [ChatGPT, Gemini AI]
 
 **Purpose:** [What you used it for]
-- Example: "Generated boilerplate React components"
-- Example: "Debugging assistance for async functions"
-- Example: "Code review and optimization suggestions"
+- Logic Design
+- Real-time listener debugging
+- ETA learning logic
+- Firestore integration help
+- UI improvements
 
 **Key Prompts Used:**
-- "Create a REST API endpoint for user authentication"
-- "Debug this async function that's causing race conditions"
-- "Optimize this database query for better performance"
+- Explain the logic behind live ETA calculation
+- How to add urgent request approval flow
+- Real-time queue system using Firebase
 
-**Percentage of AI-generated code:** [Approximately X%]
+**Percentage of AI-generated code:** [Approximately 30% - 40%]
 
 **Human Contributions:**
-- Architecture design and planning
-- Custom business logic implementation
-- Integration and testing
-- UI/UX design decisions
+- System architecture design
+- Firebase database structuring
+- Feature integration and testing
+- Frontend development
 
 *Note: Proper documentation of AI usage demonstrates transparency and earns bonus points in evaluation!*
 
@@ -400,10 +398,8 @@ If you used AI tools during development, document them here for transparency:
 
 ## Team Contributions
 
-- [Name 1]: [Specific contributions - e.g., Frontend development, API integration, etc.]
-- [Name 2]: [Specific contributions - e.g., Backend development, Database design, etc.]
-- [Name 3]: [Specific contributions - e.g., UI/UX design, Testing, Documentation, etc.]
-
+- [Akshara R]: [Backend logic, Firestore database design, real-time features]
+- [Uthara Menon]: [Frontend development, UI design, integration.]
 ---
 
 ## License
