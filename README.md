@@ -78,26 +78,26 @@
 
 #### Screenshots (Add at least 3)
 
-![Screenshot1](screenshots/assigning token to user.png)
+![Screenshot1](screenshots/assigning_token_to_user.png)
 Student interface showing token number, people ahead, total peoplein queue and real-time estimated waiting time after joining a queue.
 
-![Screenshot2](screenshots/closing and opening queue.png)
+![Screenshot2](screenshots/closing_and_opening_queue.png)
 Admin closes the queue temporarily, users attempting to join are notified that the service is unavailable.
 
-![Screenshot3](screenshots/missed tokens added to grace queue.png)
+![Screenshot3](screenshots/missed_tokens_added_to_grace_queue.png)
 Users who miss their turn are moved to a grace queue and can be served next without rejoining from the end.
 
-![Screenshot4](screenshots/service completed.png)
+![Screenshot4](screenshots/service_completed.png)
 Student screen automatically updates when service is completed and token is removed from the system.
 
-![Screenshot5](screenshots/service selection for user.png)
+![Screenshot5](screenshots/service_selection_for_user.png)
 User interface where students choose the required service (Canteen, Office, or Library) before joining the respective digital queue.
 
 #### Diagrams
 
 **System Architecture:**
 
-![Architecture Diagram](diagrams/Architecture Diagram.png)
+![Architecture Diagram](diagrams/Architecture_Diagram.png)
 
 Our system follows a real-time, serverless client–backend architecture built using Firebase as a Backend-as-a-Service (BaaS). The application consists of two client interfaces — a Student client and an Admin client — both interacting directly with Firebase services without a traditional backend server. The frontend is built using React.js (or HTML, CSS, JavaScript) and integrates the Firebase SDK to communicate with the backend. Cloud Firestore is used as the NoSQL database to store queue and token data, while Firebase Authentication manages user identity and role-based access (student/admin). Real-time synchronization is achieved using Firestore listeners (onSnapshot()), ensuring that any update made by students or admins instantly reflects across all connected devices. Critical business logic such as token assignment, ETA calculation, urgent request prioritization, and queue validation is handled securely using Firebase Cloud Functions, preventing client-side manipulation. The application can be deployed using Firebase Hosting, making it fully scalable, low-latency, and easy to maintain.
 
@@ -149,7 +149,7 @@ Minimal infrastructure maintenance
 
 **Application Workflow:**
 
-[Workflow](diagrams/Application Workflow.png)
+[Workflow](diagrams/Application_Workflow.png)
 Our workflow represents the real-time operational flow of the queue system, showing how actions from students and admins move through Firebase and reflect instantly across the application.
 The process begins when a student joins the queue through the frontend interface. The student’s request is immediately stored in Cloud Firestore as a new token document. Because Firestore supports real-time listeners, this new entry automatically updates the Admin Dashboard without requiring a manual refresh. The admin can then take action — such as approving the request, serving the next token, marking a token as completed, or handling urgent priority. When the admin performs an action, the corresponding token document in Firestore is updated. This database update again triggers real-time synchronization, which instantly refreshes the student’s screen to reflect their new position, updated ETA, or status change. The cycle continues dynamically, ensuring both sides always view the same live data.
 Step-by-Step Workflow
