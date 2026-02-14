@@ -26,42 +26,47 @@ function loadTokens() {
   const q = query(tokensRef, orderBy("isUrgent", "desc"), orderBy("tokenNumber"));
 
   unsubscribe = onSnapshot(q, (snapshot) => {
+
+    // ✅ Correct place to count
+    document.getElementById("queueCount").innerText = snapshot.size;
+
     const list = document.getElementById("tokenList");
     list.innerHTML = "";
 
     snapshot.forEach((docItem) => {
-  const data = docItem.data();
-  const li = document.createElement("li");
+      const data = docItem.data();
+      const li = document.createElement("li");
 
-  let html = "<div class='token-card'>";
+      let html = "<div class='token-card'>";
 
-  html += "<div class='token-title'>Token " + data.tokenNumber + "</div>";
+      html += "<div class='token-title'>Token " + data.tokenNumber + "</div>";
 
-  if (data.queueType === "grace") {
-    html += "<div class='grace'>Grace Queue</div>";
-  }
+      if (data.queueType === "grace") {
+        html += "<div class='grace'>Grace Queue</div>";
+      }
 
-  if (data.urgentRequested) {
-    html += "<div class='urgent'>Urgent: " + data.urgentComment + "</div>";
+      if (data.urgentRequested) {
+        html += "<div class='urgent'>Urgent: " + data.urgentComment + "</div>";
 
-    html +=
-      "<button class='action-btn' onclick='approveUrgent(\"" + docItem.id + "\")'>Approve</button>" +
-      "<button class='action-btn' onclick='rejectUrgent(\"" + docItem.id + "\")'>Reject</button>";
-  }
+        html +=
+          "<button class='action-btn' onclick='approveUrgent(\"" + docItem.id + "\")'>Approve</button>" +
+          "<button class='action-btn' onclick='rejectUrgent(\"" + docItem.id + "\")'>Reject</button>";
+      }
 
-  html +=
-    "<br>" +
-    "<button class='action-btn' onclick='serveThis(\"" + docItem.id + "\")'>Served</button>" +
-    "<button class='action-btn' onclick='markMissed(\"" + docItem.id + "\")'>Missed</button>";
+      html +=
+        "<br>" +
+        "<button class='action-btn' onclick='serveThis(\"" + docItem.id + "\")'>Served</button>" +
+        "<button class='action-btn' onclick='markMissed(\"" + docItem.id + "\")'>Missed</button>";
 
-  html += "</div>";
+      html += "</div>";
 
-  li.innerHTML = html;
-  list.appendChild(li);
-});
+      li.innerHTML = html;
+      list.appendChild(li);
+    });
 
   });
 }
+
 
 
 window.serveNext = async function () {

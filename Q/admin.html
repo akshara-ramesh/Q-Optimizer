@@ -166,7 +166,7 @@ body {
 
 
 <div class="stats">
-  <p>Total in Queue: <b id="total">0</b></p>
+  <h3>People in Queue: <span id="queueCount">0</span></h3>
 </div>
 
 <button onclick="serveNext()">Serve Next</button>
@@ -174,26 +174,6 @@ body {
 <h3>Token List</h3>
 <ul id="tokenList"></ul>
 
-<script type="module">
-import { db } from "./firebase.js";
-import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-const queueSelect = document.getElementById("queueSelect");
-
-function trackStats(queue) {
-  const tokensRef = collection(db, "queues", queue, "tokens");
-
-  onSnapshot(tokensRef, (snap) => {
-    document.getElementById("total").innerText = snap.size;
-  });
-}
-
-trackStats("canteen");
-
-queueSelect.addEventListener("change", () => {
-  trackStats(queueSelect.value);
-});
-</script>
 
 <script>
 window.onload = function() {
