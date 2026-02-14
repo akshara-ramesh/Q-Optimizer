@@ -137,7 +137,7 @@ function watchMyToken() {
 
       document.getElementById("result").innerHTML =
         "<div class='token'> Service Completed</div>" +
-        "<div class='info'>Thank you! You may leave.</div>" +
+        "<div class='info'>Thank you.</div>" +
         "<br><button class='btn' onclick='location.href=\"index.html\"'>Back Home</button>";
 
       document.getElementById("urgentStatus").innerHTML = "";

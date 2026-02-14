@@ -2,39 +2,52 @@
 <html>
 <head>
   <title>Queue</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     body {
-      font-family: 'Segoe UI';
-      text-align: center;
-      margin-top: 60px;
-      background: #f5f6fa;
+      font-family: 'Roboto', 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background: linear-gradient(135deg, #f5f5f4, #fcb69f);
+      padding-top: 50px;
     }
 
     h1 {
       color: #ff6a00;
-      margin-bottom: 20px;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      animation: fadeInDown 1s ease forwards;
     }
 
     #result {
       background: white;
-      padding: 30px;
-      border-radius: 20px;
-      display: inline-block;
-      min-width: 320px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      padding: 40px 30px;
+      border-radius: 30px;
+      min-width: 300px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease forwards;
     }
 
     .token {
-      font-size: 48px;
+      font-size: 60px;
       font-weight: bold;
       color: #ff6a00;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .info {
       font-size: 16px;
-      margin: 8px 0;
+      margin: 10px 0;
       color: #333;
     }
 
@@ -46,47 +59,82 @@
     }
 
     .btn {
-      margin-top: 15px;
-      padding: 10px 18px;
+      margin-top: 20px;
+      padding: 12px 22px;
       border: none;
       border-radius: 25px;
       background: linear-gradient(45deg, #ff6a00, #ffb347);
       color: white;
-      font-size: 14px;
+      font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     }
 
     .btn:hover {
-      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
 
     #urgentStatus {
-      margin-top: 12px;
-      font-size: 15px;
+      margin-top: 15px;
+      font-size: 16px;
       font-weight: bold;
+      color: #e74c3c;
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      #result {
+        padding: 30px 20px;
+        min-width: 90%;
+      }
+
+      .token {
+        font-size: 48px;
+      }
+
+      .btn {
+        font-size: 14px;
+        padding: 10px 18px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<h1 id="title">Queue</h1>
+  <h1 id="title">Queue</h1>
 
-<div id="result">Joining queue...</div>
+  <div id="result">
+    <div class="token">--</div>
+    <div class="info">Joining queue...</div>
+  </div>
 
-<!-- 🔴 THIS SHOWS APPROVAL STATUS -->
-<div id="urgentStatus"></div>
+  <div id="urgentStatus"></div>
 
-<script type="module">
-  import "./app.js";
+  <script type="module">
+    import "./app.js";
 
-  const queue = localStorage.getItem("selectedQueue");
+    const queue = localStorage.getItem("selectedQueue") || "queue";
+    document.getElementById("title").innerText = queue.toUpperCase() + " Queue";
 
-  document.getElementById("title").innerText =
-    queue.toUpperCase() + " Queue";
-
-  window.join(queue);
-</script>
+    if(window.join) window.join(queue);
+  </script>
 
 </body>
 </html>

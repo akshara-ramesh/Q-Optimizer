@@ -2,196 +2,220 @@
 <html>
 <head>
   <title>Admin Dashboard</title>
-
-  <h3 id="queueName"></h3>
-
-<script>
-window.onload = function() {
-  const q = localStorage.getItem("adminQueue");
-
-  if (!q) {
-    window.location.href = "admin-login.html";
-    return;
-  }
-
-  document.getElementById("adminTitle").innerText =
-    q.toUpperCase() + " Admin Dashboard";
-
-  document.getElementById("queueName").innerText =
-    "Managing: " + q.toUpperCase() + " Queue";
-};
-</script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     body {
-      font-family: 'Segoe UI';
-      background: #f7f7f7;
+      font-family: 'Roboto', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f5f5f4, #fcb69f);
+      margin: 0;
+      padding: 30px;
+      min-height: 100vh;
       text-align: center;
-      padding: 40px;
     }
 
-    h1 {
+    h1, h3 {
       color: #ff6a00;
-      margin-bottom: 20px;
+      margin: 10px 0;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
     }
 
-    select {
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      font-size: 16px;
+    #adminTitle {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      animation: fadeInDown 1s ease forwards;
     }
 
+    #queueName {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      animation: fadeInDown 1s ease forwards;
+    }
+
+    /* Stats card */
     .stats {
       background: white;
-      padding: 15px;
-      border-radius: 12px;
-      margin: 15px auto;
-      width: 300px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      padding: 25px 20px;
+      border-radius: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      margin: 20px auto;
+      min-width: 300px;
+      max-width: 400px;
     }
 
+    .stats h3 {
+      font-size: 1.3rem;
+      color: #333;
+      margin: 0;
+    }
+
+    /* Buttons */
     button {
       padding: 12px 25px;
-      background: linear-gradient(45deg, #ff6a00, #ffb347);
+      margin: 12px 6px 12px 6px;
       border: none;
       border-radius: 25px;
+      background: linear-gradient(45deg, #ff6a00, #ffb347);
       color: white;
       font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
-      margin: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     }
 
-    ul {
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Token List vertical */
+    #tokenList {
+      display: flex;
+      flex-direction: column; /* vertical stacking */
+      gap: 15px;
       list-style: none;
       padding: 0;
-      max-width: 400px;
-      margin: auto;
+      max-width: 500px;
+      margin: 30px auto 0 auto;
+    }
+
+    .token-card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       text-align: left;
     }
 
-    li {
-      background: white;
-      padding: 12px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    .token-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .grace {
+      color: purple;
+      font-size: 13px;
+    }
+
+    .urgent {
+      color: red;
+      font-size: 13px;
+      margin-top: 6px;
     }
 
     .action-btn {
-  background: white;
-  color: #ff6a00;
-  border: 2px solid #ff6a00;
-  padding: 6px 12px;
-  margin: 4px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.2s;
-}
+      background: white;
+      color: #ff6a00;
+      border: 2px solid #ff6a00;
+      padding: 6px 12px;
+      margin-top: 8px;
+      margin-right: 6px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
 
-.action-btn:hover {
-  background: #ff6a00;
-  color: white;
-}
+    .action-btn:hover {
+      background: #ff6a00;
+      color: white;
+    }
 
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f5f6fa;
-  padding: 30px;
-}
+    /* Closed queue screen */
+    #closedScreen {
+      display: none;
+      margin-top: 60px;
+      text-align: center;
+    }
 
-#adminTitle {
-  text-align: center;
-  color: #ff6a00;
-  margin-bottom: 20px;
-}
+    #closedScreen h1 {
+      color: red;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
 
-#tokenList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 15px;
-  list-style: none;
-  padding: 0;
-}
+    #closedScreen p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
 
-.token-card {
-  background: white;
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-}
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
-.token-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
+    @media (max-width: 600px) {
+      #adminTitle {
+        font-size: 2rem;
+      }
 
-.grace {
-  color: purple;
-  font-size: 13px;
-}
+      #queueName {
+        font-size: 1.2rem;
+      }
 
-.urgent {
-  color: red;
-  font-size: 13px;
-  margin-top: 6px;
-}
+      .token-card {
+        padding: 15px;
+      }
 
-.action-btn {
-  background: white;
-  color: #ff6a00;
-  border: 2px solid #ff6a00;
-  padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 6px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.action-btn:hover {
-  background: #ff6a00;
-  color: white;
-}
-
+      button {
+        font-size: 14px;
+        padding: 10px 18px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-<h1 id="adminTitle">Admin Dashboard</h1>
-<h3 id="queueName"></h3>
+  <h1 id="adminTitle">Admin Dashboard</h1>
+  <h3 id="queueName"></h3>
 
-<!-- NORMAL DASHBOARD -->
-<div id="adminContent">
+  <!-- NORMAL DASHBOARD -->
+  <div id="adminContent">
 
-  <div class="stats">
-    <h3>People in Queue: <span id="queueCount">0</span></h3>
+    <div class="stats">
+      <h3>People in Queue: <span id="queueCount">0</span></h3>
+    </div>
+
+    <button onclick="serveNext()">Serve Next</button>
+    <button onclick="closeQueue()">Close Queue</button>
+
+    <h3>Status: <span id="queueStatus"></span></h3>
+
+    <h3>Token List</h3>
+    <ul id="tokenList">
+      <!-- Token cards will appear here vertically -->
+    </ul>
+
   </div>
 
-  <button onclick="serveNext()">Serve Next</button>
-  <button onclick="closeQueue()">Close Queue</button>
+  <!-- CLOSED SCREEN -->
+  <div id="closedScreen">
+    <h1>QUEUE CLOSED</h1>
+    <p>Service temporarily unavailable</p>
+    <button onclick="openQueue()">Open Queue</button>
+  </div>
 
-  <h3>Status: <span id="queueStatus"></span></h3>
+  <script>
+    // Check admin queue
+    window.onload = function() {
+      const q = localStorage.getItem("adminQueue");
 
-  <h3>Token List</h3>
-  <ul id="tokenList"></ul>
+      if (!q) {
+        window.location.href = "admin-login.html";
+        return;
+      }
 
-</div>
+      document.getElementById("adminTitle").innerText = q.toUpperCase() + " Admin Dashboard";
+      document.getElementById("queueName").innerText = "Managing: " + q.toUpperCase() + " Queue";
+    };
+  </script>
 
-
-<!-- CLOSED SCREEN -->
-<div id="closedScreen" style="display:none; margin-top:60px;">
-  <h1 style="color:red;">QUEUE CLOSED</h1>
-  <p>Service temporarily unavailable</p>
-  <button onclick="openQueue()">Open Queue</button>
-</div>
-
-<script type="module" src="admin.js"></script>
+  <script type="module" src="admin.js"></script>
 
 </body>
-
 </html>
