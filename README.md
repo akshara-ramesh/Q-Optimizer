@@ -2,18 +2,18 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Q-Optimizer] 🎯
+# Q-Optimizer 🎯
 
 ## Basic Details
 
-### Team Name: [Codenauts]
+### Team Name: Codenauts
 
 ### Team Members
-- Member 1: [Akshara R] - [NSS College Of Engineering, Palakkad]
-- Member 2: [Uthara Menon] - [NSS College Of Engineering, Palakkad]
+- Member 1: Akshara R - NSS College Of Engineering, Palakkad
+- Member 2: Uthara Menon - NSS College Of Engineering, Palakkad
 
 ### Hosted Project Link
-[https://heroic-chimera-745ca4.netlify.app/]
+https://heroic-chimera-745ca4.netlify.app/
 
 ### Project Description
 AI-assisted smart queue management system that replaces physical lines in college canteens, offices, and libraries with a digital token system. It provides real-time queue position, wait time estimation, urgent priority handling, and dynamic queue control.
@@ -31,10 +31,10 @@ We built a real-time digital token system that converts physical queues into vir
 ### Technologies/Components Used
 
 **For Software:**
-- Languages used: [JavaScript, HTML, CSS]
-- Frameworks used: [Firebase (Backend)]
-- Libraries used: [Firebase Firestore SDK]
-- Tools used: [VS Code, Git, Firebase Console, Chrome DevTools]
+- Languages used: JavaScript, HTML, CSS
+- Frameworks used: Firebase (Backend)
+- Libraries used: Firebase Firestore SDK
+- Tools used: VS Code, Git, Firebase Console, Chrome DevTools
 
 **For Hardware:**
 [None]
@@ -137,7 +137,7 @@ Urgent request → Priority adjusted via Cloud Function → Queue reordered → 
 
 🔹 Architecture Benefits
 
-Fully serverless (no dedicated backend server)
+Fully serverless 
 
 Real-time synchronization
 
@@ -149,7 +149,7 @@ Minimal infrastructure maintenance
 
 **Application Workflow:**
 
-[Workflow](diagrams/Application_Workflow.png)
+![Workflow](diagrams/Application_Workflow.png)
 Our workflow represents the real-time operational flow of the queue system, showing how actions from students and admins move through Firebase and reflect instantly across the application.
 The process begins when a student joins the queue through the frontend interface. The student’s request is immediately stored in Cloud Firestore as a new token document. Because Firestore supports real-time listeners, this new entry automatically updates the Admin Dashboard without requiring a manual refresh. The admin can then take action — such as approving the request, serving the next token, marking a token as completed, or handling urgent priority. When the admin performs an action, the corresponding token document in Firestore is updated. This database update again triggers real-time synchronization, which instantly refreshes the student’s screen to reflect their new position, updated ETA, or status change. The cycle continues dynamically, ensuring both sides always view the same live data.
 Step-by-Step Workflow
