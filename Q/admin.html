@@ -163,34 +163,35 @@ body {
 <body>
 
 <h1 id="adminTitle">Admin Dashboard</h1>
+<h3 id="queueName"></h3>
 
+<!-- NORMAL DASHBOARD -->
+<div id="adminContent">
 
-<div class="stats">
-  <h3>People in Queue: <span id="queueCount">0</span></h3>
+  <div class="stats">
+    <h3>People in Queue: <span id="queueCount">0</span></h3>
+  </div>
+
+  <button onclick="serveNext()">Serve Next</button>
+  <button onclick="closeQueue()">Close Queue</button>
+
+  <h3>Status: <span id="queueStatus"></span></h3>
+
+  <h3>Token List</h3>
+  <ul id="tokenList"></ul>
+
 </div>
 
-<button onclick="serveNext()">Serve Next</button>
 
-<h3>Token List</h3>
-<ul id="tokenList"></ul>
-
-
-<script>
-window.onload = function() {
-  const q = localStorage.getItem("adminQueue");
-
-  if (!q) {
-    window.location.href = "admin-login.html";
-    return;
-  }
-
-  document.getElementById("adminTitle").innerText =
-    q.toUpperCase() + " Admin Dashboard";
-};
-</script>
-
+<!-- CLOSED SCREEN -->
+<div id="closedScreen" style="display:none; margin-top:60px;">
+  <h1 style="color:red;">QUEUE CLOSED</h1>
+  <p>Service temporarily unavailable</p>
+  <button onclick="openQueue()">Open Queue</button>
+</div>
 
 <script type="module" src="admin.js"></script>
 
 </body>
+
 </html>

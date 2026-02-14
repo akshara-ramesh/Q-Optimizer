@@ -26,6 +26,13 @@ window.join = async function(queueId) {
     }
 
     const queueData = queueSnap.data();
+    if (queueData.isOpen === false) {
+  document.getElementById("result").innerHTML =
+    "<div class='token'>🚫 Queue Closed</div>" +
+    "<div class='info'>Service temporarily unavailable. Try later.</div>";
+  return;
+}
+
     const lastToken = queueData.lastTokenNumber || 0;
     const avgTime = queueData.avgServiceTime || 45;
 

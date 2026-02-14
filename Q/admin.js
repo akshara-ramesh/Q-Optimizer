@@ -16,11 +16,42 @@ import {
 // Get queue from login
 let queueId = localStorage.getItem("adminQueue");
 
+const queueRef = doc(db, "queues", queueId);
+
+onSnapshot(queueRef, (snap) => {
+  const data = snap.data();
+
+  if (!data) return;
+
+  // Update status text
+  document.getElementById("queueStatus").innerText =
+    data.isOpen ? "Open" : "Closed";
+
+  // Switch screens
+  if (data.isOpen === false) {
+    document.getElementById("adminContent").style.display = "none";
+    document.getElementById("closedScreen").style.display = "block";
+  } else {
+    document.getElementById("adminContent").style.display = "block";
+    document.getElementById("closedScreen").style.display = "none";
+  }
+});
+
+
 let unsubscribe = null;
 
 function loadTokens() {
 
   if (unsubscribe) unsubscribe();
+
+  const queueRef = doc(db, "queues", queueId);
+
+onSnapshot(queueRef, (snap) => {
+  const data = snap.data();
+  document.getElementById("queueStatus").innerText =
+    data.isOpen ? "Open" : "Closed";
+});
+
 
   const tokensRef = collection(db, "queues", queueId, "tokens");
   const q = query(tokensRef, orderBy("isUrgent", "desc"), orderBy("tokenNumber"));
@@ -88,6 +119,21 @@ window.serveNext = async function () {
   const mainQuery = query(tokensRef, orderBy("isUrgent", "desc"), orderBy("tokenNumber"), limit(1));
   const mainSnap = await getDocs(mainQuery);
 
+  const queueRef = doc(db, "queues", queueId);
+
+onSnapshot(queueRef, (snap) => {
+  const data = snap.data();
+
+  if (data.isOpen === false) {
+    document.getElementById("adminContent").style.display = "none";
+    document.getElementById("closedScreen").style.display = "block";
+  } else {
+    document.getElementById("adminContent").style.display = "block";
+    document.getElementById("closedScreen").style.display = "none";
+  }
+});
+
+
   mainSnap.forEach(async (docItem) => {
     await deleteDoc(docItem.ref);
   });
@@ -116,6 +162,20 @@ window.rejectUrgent = async function(tokenId) {
     urgentComment: ""
   });
 };
+
+window.closeQueue = async function() {
+  await updateDoc(doc(db, "queues", queueId), {
+    isOpen: false
+  });
+};
+
+window.openQueue = async function() {
+  await updateDoc(doc(db, "queues", queueId), {
+    isOpen: true
+  });
+};
+
+
 
 
 loadTokens();
