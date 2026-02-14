@@ -10,19 +10,19 @@
 
 ### Team Members
 - Member 1: [Akshara R] - [NSS College Of Engineering, Palakkad]
-- Member 2: [Uthara Menon] - [NSS College Of Engineering, Palakkade]
+- Member 2: [Uthara Menon] - [NSS College Of Engineering, Palakkad]
 
 ### Hosted Project Link
 [https://heroic-chimera-745ca4.netlify.app/]
 
 ### Project Description
-[AI-assisted smart queue management system that replaces physical lines in college canteens, offices, and libraries with a digital token system. It provides real-time queue position, wait time estimation, urgent priority handling, and dynamic queue control.]
+AI-assisted smart queue management system that replaces physical lines in college canteens, offices, and libraries with a digital token system. It provides real-time queue position, wait time estimation, urgent priority handling, and dynamic queue control.
 
 ### The Problem statement
-[In institutions such as colleges, long and unorganized queues are common in places like canteens, libraries, labs, and administrative offices. People are required to stand in line without knowing their actual waiting time. This leads to wasted time, overcrowding during peak hours, and inefficient service management. Additionally, staff members lack real-time visibility into queue load and peak periods, making crowd control difficult.]
+In institutions such as colleges, long and unorganized queues are common in places like canteens, libraries, labs, and administrative offices. People are required to stand in line without knowing their actual waiting time. This leads to wasted time, overcrowding during peak hours, and inefficient service management. Additionally, staff members lack real-time visibility into queue load and peak periods, making crowd control difficult.
 
 ### The Solution
-[We built a real-time digital token system that converts physical queues into virtual queues. Students can join remotely and track their position and estimated wait time, while admins can manage tokens, approve urgent requests, mark missed turns, and temporarily close queues. The system also learns average service time dynamically to improve ETA accuracy.]
+We built a real-time digital token system that converts physical queues into virtual queues. Students can join remotely and track their position and estimated wait time, while admins can manage tokens, approve urgent requests, mark missed turns, and temporarily close queues. The system also learns average service time dynamically to improve ETA accuracy.
 
 ---
 
@@ -40,12 +40,12 @@
 [None]
 
 ## Features
-- Feature 1: [Live digital token system. Students join queue and get instant token number and position.]
-- Feature 2: [Real-time ETA prediction. Wait time calculated based on current queue and average service time.]
-- Feature 3: [Urgent priority system. Students can request priority and admins can approve/reject.]
-- Feature 4: [Grace queue for missed turns. Users who miss their slot get a second chance queue.]
-- Feature 5: [Queue open/close control. Admin can close service during lunch/break time.]
-- Feature 6: [Live service completion detection. Student screen updates automatically when served.]
+- Feature 1: Live digital token system. Students join queue and get instant token number and position.
+- Feature 2: Real-time ETA prediction. Wait time calculated based on current queue and average service time.
+- Feature 3: Urgent priority system. Students can request priority and admins can approve/reject.
+- Feature 4: Grace queue for missed turns. Users who miss their slot get a second chance queue.
+- Feature 5: Queue open/close control. Admin can close service during lunch/break time.
+- Feature 6: Live service completion detection. Student screen updates automatically when served.
 ---
 
 ## Implementation
@@ -445,9 +445,9 @@ python script.py -v --format json data.json
 
 If you used AI tools during development, document them here for transparency:
 
-**Tool Used:** [ChatGPT, Gemini AI]
+**Tool Used:** ChatGPT, Gemini AI
 
-**Purpose:** [What you used it for]
+**Purpose:** What you used it for
 - Logic Design
 - Real-time listener debugging
 - ETA learning logic
@@ -459,7 +459,7 @@ If you used AI tools during development, document them here for transparency:
 - How to add urgent request approval flow
 - Real-time queue system using Firebase
 
-**Percentage of AI-generated code:** [Approximately 30% - 40%]
+**Percentage of AI-generated code:** Approximately 30% - 40%
 
 **Human Contributions:**
 - System architecture design
@@ -473,8 +473,8 @@ If you used AI tools during development, document them here for transparency:
 
 ## Team Contributions
 
-- [Akshara R]: [Backend logic, Firestore database design, real-time features]
-- [Uthara Menon]: [Frontend development, UI design, integration.]
+- Akshara R: Backend logic, Firestore database design, real-time features.
+- Uthara Menon: Frontend development, UI design, integration.
 ---
 
 ## License
